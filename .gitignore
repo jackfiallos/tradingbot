@@ -1,0 +1,43 @@
+# Logs
+*.log
+
+# OS generated files #
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Node Files #
+server/node_modules/
+npm-debug.log
+/npm-debug.log.*
+
+# Dist #
+server/dist
+server/dist/**
+
+# Package lock #
+package-lock.json
+
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+server/node_modules
+client/node_modules
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

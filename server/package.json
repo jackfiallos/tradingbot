@@ -1,0 +1,46 @@
+{
+  "name": "trading-bot-server",
+  "version": "0.0.1",
+  "description": "A bitcoin trading bot for auto trading at various exchanges",
+  "keywords": [
+    "trading",
+    "bot",
+    "bitcoin"
+  ],
+  "main": "dist/server.js",
+  "scripts": {
+    "compile": "node_modules/.bin/tsc",
+    "start": "node dist/server.js",
+    "clean": "rimraf dist/*",
+    "build": "npm run clean && npm run compile"
+  },
+  "author": "Jackfiallos <erlingfiallos@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.108",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^10.0.3",
+    "@types/restify": "^5.0.7",
+    "@types/restify-cors-middleware": "^1.0.1",
+    "@types/socket.io": "^1.4.33",
+    "axios": "^0.18.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "restify": "^7.1.1",
+    "restify-cors-middleware": "^1.1.0",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.3"
+  },
+  "engines": {
+    "node": ">=8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackfiallos/tradingbot.git"
+  }
+}
