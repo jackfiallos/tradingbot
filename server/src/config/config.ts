@@ -1,8 +1,8 @@
 import { ConfigInterface } from '../interfaces/config.interface';
 
-let env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development';
 
-export let settings: ConfigInterface = {
+export const settings: ConfigInterface = {
     app: {
         name: 'trading-bot',
         version: '1.0.0'
@@ -13,6 +13,14 @@ export let settings: ConfigInterface = {
     server: {
         throttleRate: 50,
         throttleBurst: 100
+    },
+    db: {
+        host: 'localhost',
+        port: 3306,
+        user: 'root',
+        password: 'mariadbmacos',
+        database: 'tradingbot',
+        dialect: 'mysql'
     },
     datasources: [
         'CEX.io'

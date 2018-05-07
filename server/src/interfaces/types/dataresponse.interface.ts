@@ -1,4 +1,4 @@
-export interface DataResponse {
+export interface DataResponseInterface {
     time: Date;
     close: number;
     high: number;

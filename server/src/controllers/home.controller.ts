@@ -5,7 +5,10 @@ import _ from 'lodash';
 
 import { ErrorsConstant } from '../constants/errors.constant';
 import { settings } from '../config/config';
-import { CexIOApi } from '../core/datasources/cex.api';
+import { CryptoCompareAPI } from '../core/datasources/cryptocompare.api';
+import { DataResponseInterface } from '../interfaces/types/dataresponse.interface';
+import { getManager, EntityManager } from 'typeorm';
+import { Historical as HistoricalEntity } from '../db/entities/historical.entity';
 
 const config: any = [
     {
@@ -33,17 +36,33 @@ const config: any = [
                 '/import'
             ]
         },
-        middleware: (request: restify.Request, response: restify.Response, next: restify.Next) => {
-            const datasource: CexIOApi = new CexIOApi('BTC', 'EUR');
-            datasource.getData(5)
-                .then((res) => {
-                    response.send(res);
-                    return next();
-                })
-                .catch((err) => {
-                    response.send(err);
-                    return next();
-                });
+        middleware: async (request: restify.Request, response: restify.Response, next: restify.Next) => {
+            try {
+                const datasource: CryptoCompareAPI = new CryptoCompareAPI('BTC', 'EUR');
+                const tradingData = await datasource.getData();
+
+                const connectionManager: EntityManager = getManager();
+
+                for (const data of tradingData) {
+                    const dataResponse = new HistoricalEntity();
+                    dataResponse.time = data.time;
+                    dataResponse.close = data.close;
+                    dataResponse.high = data.high;
+                    dataResponse.low = data.low;
+                    dataResponse.open = data.open;
+                    dataResponse.volumefrom = data.volumefrom;
+                    dataResponse.volumeto = data.volumeto;
+                    dataResponse.datasource = 'cryptocompare';
+
+                    connectionManager.save(dataResponse);
+                }
+
+                response.send(tradingData);
+            } catch(err) {
+                response.send(err);
+            } finally {
+                return next();
+            }
         }
     }
 ];

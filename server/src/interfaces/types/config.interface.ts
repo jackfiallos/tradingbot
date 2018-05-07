@@ -10,5 +10,13 @@ export interface ConfigInterface {
         throttleRate: number;
         throttleBurst: number;
     },
+    db: {
+        host: string;
+        port: number;
+        user: string;
+        password: string;
+        database: string;
+        dialect: string;
+    },
     datasources: string[];
 }

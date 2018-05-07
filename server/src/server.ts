@@ -6,8 +6,10 @@ import * as socketIo from 'socket.io';
 
 import { settings } from './config/config';
 import { logger } from './services/logger';
-import { ConfigInterface } from './interfaces/config.interface';
-import { RouteInterface } from './interfaces/route.interface';
+import { ConfigInterface } from './interfaces/types/config.interface';
+import { RouteInterface } from './interfaces/types/route.interface';
+import { configDB } from './db/setup';
+import { Connection } from 'typeorm';
 
 export let api: restify.Server = restify.createServer({
     name: settings.app.name,
@@ -90,7 +92,15 @@ const setupControllers = (controller: string, conf: ConfigInterface, server: res
 });
 
 api.listen(settings.port, () => {
-    logger.info(`INFO: ${settings.app.name} is running at ${api.url}`);
+    logger.info(`${settings.app.name} is running at ${api.url}`);
+
+    // connect to BD
+    configDB.then((connection: Connection) => {
+        console.info('INFO: Database connection has been established successfully.');
+    })
+    .catch((err: any) => {
+        console.error('Unable to connect to the database:', err);
+    });
 });
 
 /**

@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
-import { DataResponse } from './dataresponse.interface';
+import axios, { AxiosRequestConfig } from 'axios';
+import { DataResponseInterface } from '../types/dataresponse.interface';
 
 export abstract class DatasourceInterface {
     protected cryptoFrom: string;
@@ -20,5 +20,5 @@ export abstract class DatasourceInterface {
      * @returns {DataResponse}
      * @memberof Datasource
      */
-    protected abstract getData(limit: number): AxiosPromise<DataResponse[]>;
+    protected abstract getData(limit: number): Promise<DataResponseInterface[]>;
 }
